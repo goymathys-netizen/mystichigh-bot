@@ -11,7 +11,7 @@ CONTACT_PROFILE = "https://t.me/hmzz63_7"
 CANAL_LINK = "https://t.me/mistichigh63"
 INSTA_LINK = "https://instagram.com/TON_COMPTE"
 SIGNAL_LINK = "https://signal.me/#p/+33743262776"
-MINI_APP_URL = "https://superb-sunburst-2d3ee4.netlify.app"
+MINI_APP_URL = "https://benevolent-boba-5c725d.netlify.app"
 
 WELCOME_TEXT = (
     "Bienvenue sur Mystic High 63 \n\n"
@@ -76,6 +76,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
