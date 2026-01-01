@@ -2,6 +2,7 @@ import os
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo, Update
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
 
+# Token via variable d'environnement (important pour GitHub + hébergeur)
 TOKEN = os.getenv("BOT_TOKEN")
 if not TOKEN:
     raise ValueError("BOT_TOKEN manquant. Ajoute ton token dans les variables d’environnement.")
@@ -13,9 +14,7 @@ SIGNAL_LINK = "https://signal.me/#p/+33743262776"
 MINI_APP_URL = "https://benevolent-boba-5c725d.netlify.app"
 
 WELCOME_TEXT = (
-    "Bienvenue sur Mystic High 63\n\n"
-    "Appuie sur « Ouvrir l’application » pour accéder à la mini-app.\n"
-    "Le menu est mis à jour régulièrement."
+    "Bienvenue sur Mystic High 63 \n\n"
 )
 
 INFO_TEXT = (
@@ -27,7 +26,6 @@ INFO_TEXT = (
 )
 
 def keyboard() -> InlineKeyboardMarkup:
-   
     return InlineKeyboardMarkup(
         [
             [
@@ -69,11 +67,15 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 def main():
     app = Application.builder().token(TOKEN).build()
+
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CallbackQueryHandler(button_handler))
+
     print("Bot en ligne...")
     app.run_polling()
 
 if __name__ == "__main__":
     main()
+
+
 
