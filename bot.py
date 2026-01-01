@@ -31,16 +31,28 @@ INFO_TEXT = (
 def keyboard() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         [
-            [InlineKeyboardButton("📱 Ouvrir l’application", web_app=WebAppInfo(url=MINI_APP_URL))],
-            [InlineKeyboardButton("📲 Contact", url=CONTACT_PROFILE)],
-            [InlineKeyboardButton("📣 Canal", url=CANAL_LINK)],
-            [InlineKeyboardButton("ℹ️ Informations", callback_data="info")],
-            [InlineKeyboardButton("📸 Instagram", url=INSTA_LINK)],
-            [InlineKeyboardButton("🟦 Signal", url=SIGNAL_LINK)],
+            [
+                InlineKeyboardButton(
+                    "📱 Ouvrir l’application",
+                    web_app=WebAppInfo(url=MINI_APP_URL),
+                )
+            ],
+            [
+                InlineKeyboardButton("📲 Contact direct", url=CONTACT_PROFILE),
+                InlineKeyboardButton("📣 Canal officiel", url=CANAL_LINK),
+            ],
+            [
+                InlineKeyboardButton("ℹ️ Informations", callback_data="info"),
+                InlineKeyboardButton("📸 Instagram", url=INSTA_LINK),
+            ],
+            [
+                InlineKeyboardButton("🟦 Signal", url=SIGNAL_LINK),
+            ],
         ]
     )
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # Envoie le message de bienvenue + le menu
     await update.message.reply_text(
         WELCOME_TEXT,
         reply_markup=keyboard(),
@@ -52,10 +64,9 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await query.answer()
 
     if query.data == "info":
-        # Plus propre : remplace le message et garde le menu
-        await query.edit_message_text(
+        # Comme avant : envoie un nouveau message "Informations"
+        await query.message.reply_text(
             INFO_TEXT,
-            reply_markup=keyboard(),
             disable_web_page_preview=True,
         )
 
@@ -70,3 +81,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
