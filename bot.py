@@ -14,8 +14,10 @@ SIGNAL_LINK = "https://signal.me/#p/+33743262776"
 MINI_APP_URL = "https://benevolent-boba-5c725d.netlify.app"
 
 WELCOME_TEXT = (
-    "Bienvenue sur Mystic High 63 ♡\n\n"
-    "Choisis une option :"
+    "Bienvenue sur Mystic High 63\n\n"
+    "📲 Appuie sur « Ouvrir l’application » pour accéder à la mini-app.\n\n"
+    "📌 Le menu est mis à jour régulièrement.\n"
+    "Tout ce qui est affiché est disponible."
 )
 
 INFO_TEXT = (
@@ -29,23 +31,12 @@ INFO_TEXT = (
 def keyboard() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         [
-            [
-                InlineKeyboardButton(
-                    "📱 Ouvrir l'application",
-                    web_app=WebAppInfo(url=MINI_APP_URL),
-                )
-            ],
-            [
-                InlineKeyboardButton("Contact 📲", url=CONTACT_PROFILE),
-                InlineKeyboardButton("Canal", url=CANAL_LINK),
-            ],
-            [
-                InlineKeyboardButton("ℹ️ Informations", callback_data="info"),
-                InlineKeyboardButton("Instagram", url=INSTA_LINK),
-            ],
-            [
-                InlineKeyboardButton("Signal", url=SIGNAL_LINK),
-            ],
+            [InlineKeyboardButton("📱 Ouvrir l’application", web_app=WebAppInfo(url=MINI_APP_URL))],
+            [InlineKeyboardButton("📲 Contact", url=CONTACT_PROFILE)],
+            [InlineKeyboardButton("📣 Canal", url=CANAL_LINK)],
+            [InlineKeyboardButton("ℹ️ Informations", callback_data="info")],
+            [InlineKeyboardButton("📸 Instagram", url=INSTA_LINK)],
+            [InlineKeyboardButton("🟦 Signal", url=SIGNAL_LINK)],
         ]
     )
 
@@ -61,8 +52,10 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await query.answer()
 
     if query.data == "info":
-        await query.message.reply_text(
+        # Plus propre : remplace le message et garde le menu
+        await query.edit_message_text(
             INFO_TEXT,
+            reply_markup=keyboard(),
             disable_web_page_preview=True,
         )
 
